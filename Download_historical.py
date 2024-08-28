@@ -43,8 +43,8 @@ def fetch_data(ticker_symbol):
     return data
 
 ## Extract all symbols
-symbols= pd.read_csv("tickers.txt", sep = "\t", engine="python", header=0,
-                     names=("Sr", "Symbol", "Name", "Market_cap"))
+symbols= pd.read_csv("tickers_nse500.txt", header=0, sep='\t', engine="python",
+                     names=("Company", "Industry", "Symbol", "Series", "ISIN"))
 
 NSE = symbols.Symbol + ".NS"
 
@@ -63,7 +63,7 @@ master_data.to_csv('all_NSE_symbols_data.csv', index=False)
 
 # Save individual CSVs for each index
 # Create a directory in the output to store individual datasets
-output_dir = 'individual_indices_data'
+output_dir = 'individual_indices_data_NSE500'
 if not os.path.exists(output_dir):
     os.mkdir(output_dir)
 
