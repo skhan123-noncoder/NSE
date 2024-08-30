@@ -33,12 +33,12 @@ def fetch_data(ticker_symbol):
         data['Date'] = data['Date'].dt.strftime('%Y-%m-%d')
     
     # Drop the unnecessary columns
-    data.drop(columns=['Dividends', 'Stock Splits', 'Adj Close'], inplace=True, errors='ignore')
+    #data.drop(columns=['Dividends', 'Stock Splits', 'Adj Close'], inplace=True, errors='ignore')
     
-    data['ticker'] = ticker_symbol  # Convert to lowercase
+    #data['ticker'] = ticker_symbol  # Convert to lowercase
     
     # Convert other column names to lowercase
-    data.columns = [col.lower() for col in data.columns]
+    #data.columns = [col.lower() for col in data.columns]
 
     return data
 
