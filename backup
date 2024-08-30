@@ -1,0 +1,37 @@
+import os
+import pandas as pd
+import datetime
+import yfinance as yf
+
+os.chdir("/bi/home/khans/NSE_parent/test_datasets/")
+for each in os.listdir():
+    symbol = each.split("_")[0]
+    df = pd.read_csv(each)
+
+# Get the last entry and increase by 1 day
+    start_date = datetime.datetime.strptime(((df.iloc[-1]).date), '%Y-%m-%d')
+    start_date += datetime.timedelta(days=1)
+    
+# Get today's date
+    today = datetime.date.today().strftime('%Y-%m-%d')
+
+#Check if the data is already imported
+    if start_date.strftime('%Y-%m-%d') == datetime.date.today().strftime('%Y-%m-%d'):
+        print("same")
+    else:
+        ticker = yf.Ticker(symbol)
+        data = ticker.history(start=start_date, end=datetime.date.today().strftime('%Y-%m-%d'))
+        data.reset_index(inplace=True)
+
+# Check if the 'Date' column is of datetime type
+        if pd.api.types.is_datetime64_any_dtype(data['Date']):
+            data['Date'] = data['Date'].dt.strftime('%Y-%m-%d')
+    
+# Convert other column names to lowercase
+        data.columns = [col.lower() for col in data.columns]
+
+#Add the new rows to the existing df
+        df_new = pd.concat([df, data], ignore_index=True)
+        print(df_new.tail())
+
+        df_new.to_csv(f'{symbol}_data.csv', index=False)
