@@ -17,7 +17,7 @@ def update_data(file_name, ticker_symbol):
 
     #Check if the data is already imported
     if start_date.strftime('%Y-%m-%d') == datetime.date.today().strftime('%Y-%m-%d'):
-        print("Stock info up to date")
+        return(0)
     else:
         ticker = yf.Ticker(ticker_symbol)
         data = ticker.history(start=start_date, end=datetime.date.today().strftime('%Y-%m-%d'))
