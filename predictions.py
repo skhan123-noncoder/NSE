@@ -3,7 +3,7 @@ from calculate_rsi import calc_rsi
 import pandas as pd
 import os
 
-path = "/bi/home/khans/NSE_parent/test_datasets/"
+path = "./test_datasets"
 
 ## Update the data for each symbol by calling the update_ticker function
 for each in os.listdir(path):
